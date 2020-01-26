@@ -1,58 +1,79 @@
-let quote = {};
-fetch("http://localhost:8080/quizz.json")
+fetch("http://localhost:8080/quizzConsole.json")
   .then(result => result.json())
   .then(data => {
     quote = data;
     console.log(data);
   });
 
-let level = "";
-function lvl() {
-  let choix = document.getElementById("choix");
-  let indexlvl = choix.selectedIndex; // Récupération de l'index du <option> choisi
+//initalisation de variable
+let quote = {};
+let level = "";//lever de difficulté
+let repChoisi
+let choice
+let score = 0// score au quizz initialisée a zéro
+let back = document.getElementById("btnB");
 
-  level = choix.options[indexlvl].value;
+function lvl() {
+  let choixLevel = document.getElementById("choix");
+  let indexlvl = choixLevel.selectedIndex; // Récupération de l'index du <option> choisi
+
+  level = choixLevel.options[indexlvl].value;
 
   document.getElementById("bof").style.display = "none";
   quizz();
   return level;
 }
 
-//
 
 function quizz() {
   let numquestion = 0;
 
   question(level, numquestion);
+
   let check = document.getElementById("btnC");
-  let back = document.getElementById("btnB");
-  if (1 < 5) {
-  }
+  let suivant = document.getElementById("btnS");
+
+  //bouton qui check les reponse
+  check.addEventListener("click", function (e) {
+    verifRep(numquestion, level)
+  });
+
   //bouton qui passe a la question suivante
-  check.addEventListener("click", function(e) {
+  suivant.addEventListener("click", function (e) {
     if (numquestion < 9) {
       console.log(numquestion);
       numquestion++;
       question(level, numquestion);
     } else {
+
       document.getElementById("pop").style.display = "none";
       document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `<h1> ${quote.thème}</h1>
+      <p>Vous avez  obtenu un score de ${score}/10 </p>`
     }
   });
 
-  //bouton qui revient a la question precedente
-  back.addEventListener("click", function(e) {
-    if (numquestion <= 10) {
-      question(level, numquestion - 1);
 
+  //bouton qui revient a la question precedente
+  back.addEventListener("click", function (e) {
+    if (numquestion < 10 && numquestion > 0) {
       console.log(numquestion);
-    } else {
+      question(level, numquestion - 1);
+    } else if (numquestion == 10) {
+
     }
   });
 }
 
 function question(niveau, numquestion) {
+
   document.getElementById("pop").style.display = "block";
+  if (numquestion < 1) {
+    back.style.display = "none"
+  } else {
+
+    back.style.display = "block"
+  }
   if (niveau.toLowerCase() == "débutant") {
     document.getElementById(`q`).innerHTML =
       quote.quizz.fr[0].débutant[numquestion].question;
@@ -80,6 +101,40 @@ function question(niveau, numquestion) {
   }
 }
 
-function repChoisi(params) {
+function verifRep(num, level) {
+  let choixLevel = document.getElementById("r");
+  let indexlvl = choixLevel.selectedIndex; // Récupération de l'index du <option> choisi
+
+  repChoisi = choixLevel.options[indexlvl].value;
   //verifie si une reponse a bien  ete choisi
+  if (level.toLowerCase() == "débutant") {
+
+    if (repChoisi == quote.quizz.fr[0].débutant[num].réponse) {
+      console.log("bonne reponse")
+      alert("bonne reponse")
+      score++
+
+    } else {
+      console.log("mauvaise reponse")
+
+    }
+  } else if (level.toLowerCase() == "expert") {
+
+    if (repChoisi == quote.quizz.fr[0].expert[num].réponse) {
+      console.log("bonne reponse")
+      alert("bonne reponse")
+      score++
+    } else {
+      console.log("mauvaise reponse")
+    }
+  } else if (level.toLowerCase() == "confirmé") {
+    if (repChoisi == quote.quizz.fr[0].confirmé[num].réponse) {
+      console.log("bonne reponse")
+      alert("bonne reponse")
+      score++
+    } else {
+      console.log("mauvaise reponse")
+    }
+  }
+
 }
