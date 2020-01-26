@@ -10,34 +10,138 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="test.css">
+    <link rel="stylesheet" href="css/quizz.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 
 <body>
+
     <h1 class="text-center">Bienvenu sue eQuizz</h1>
-    <div class="container">
+
+    <!-- block de presentation des thèmes -->
+    <div id="theme" class="container">
+        <h3 class="text-center"> Choisissez le theme sur lequel vous voulez que le quizz porte</h3>
         <div class="row">
             <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
                 <div class="card">
-                    <img class="card-img-top" src="https://picsum.photos/200/150/?random
-">
+                    <img class="card-img-top" src="img/animaux.jpg">
                     <div class="card-block">
-                        <h4 class="card-title">Tawshif Ahsan Khan</h4>
+                        <figure class="profile">
+                            <img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">
+                        </figure>
+                        <h4 class="card-title mt-3">ANIMAUX EN TOUT GENRE</h4>
                         <div class="meta">
-                            <a href="#">Friends</a>
+                            <a>ANIMAUX</a>
+                        </div>
+                        <div class="card-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. </div>
+                    </div>
+                    <div class="card-footer">
+                        <small>Last updated 3 mins ago</small>
+                        <button class="btn btn-secondary float-right btn-sm theme" value="Animaux">try it</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src="img/tennis.jpg">
+                    <div class="card-block">
+                        <figure class="profile">
+                            <img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">
+                        </figure>
+                        <h4 class="card-title mt-3">SUR LE COURT</h4>
+                        <div class="meta">
+                            <a>SPORTS · HISTOIRE</a>
+                        </div>
+                        <div class="card-text">
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quo dolores a numquam
+
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small>Last updated 3 mins ago</small>
+                        <button class="btn btn-secondary float-right btn-sm theme" value="Tennis">try it</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+                <div class="card">
+                    <img class="card-img-top" src="img/ps2.jpg">
+                    <div class="card-block">
+                        <figure class="profile">
+                            <img src="https://picsum.photos/200/150/?random" class="profile-avatar" alt="">
+                        </figure>
+                        <h4 class="card-title mt-3">Console Celebre</h4>
+                        <div class="meta">
+                            <a>Playstation 2</a>
                         </div>
                         <div class="card-text">
                             Tawshif is a web designer living in Bangladesh.
                         </div>
                     </div>
                     <div class="card-footer">
-                        <span class="float-right">Joined in 2013</span>
-                        <span><i class=""></i>75 Friends</span>
+                        <small>Last updated 3 mins ago</small>
+                        <button class="btn btn-secondary float-right btn-sm theme" value="Console">Try it</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
+
+
+    <!--Fin  block de presentation des thèmes -->
+
+    <!-- block dd quizz -->
+    <div id="quizz" class="container w-75 mam bg-primary">
+        <div id="bof" class="form-group text-center p-3">
+            <label for="choix">Quel difficulté voulez-vous jouer?</label>
+            <select class="form-control" name="choix_lvl" id="choix">
+                <option>débutant</option>
+                <option>Confirmé</option>
+                <option>Expert</option>
+            </select>
+            <button type="button" class="btn btn-md btn-outline-light" onclick="lvl()">Let's Go</button>
+        </div>
+
+        <div id="pop" class="text-center px-5">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%"
+                    aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="form-group px-5">
+                        <label id="q" for="r"></label>
+                        <select class="form-control" name="" id="r">
+                            <option hidden selected value>Choisissez votre réponse</option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                            <option></option>
+                        </select>
+
+                    </div>
+                    <button type="button" class="btn btn-md btn-outline-light" id="btnB">retour</button>
+                    <button type="button" class="btn btn-md btn-outline-light" id="btnC">check</button>
+                    <button type="button" class="btn btn-md btn-outline-light" id="btnS">suivant</button>
+
+                </div>
+
+            </div>
+        </div>
+        <div id="result">
+
+        </div>
+
+
+
+    </div>
+
+
+    <!--Fin block dd quizz -->
+
 
 
 

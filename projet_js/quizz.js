@@ -1,17 +1,33 @@
-fetch("http://localhost:8080/quizzConsole.json")
-  .then(result => result.json())
-  .then(data => {
-    quote = data;
-    console.log(data);
-  });
-
 //initalisation de variable
-let quote = {};
-let level = "";//lever de difficulté
+let quote = {}// variable qui va contenir la data hors du fetch
+let level = "";//level de difficulté
 let repChoisi
 let choice
-let score = 0// score au quizz initialisée a zéro
-let back = document.getElementById("btnB");
+let score = 0// score au quizz initialisée a zérolet btntheme = document.getElementsByClassName('theme');
+let btntheme = document.getElementsByClassName('theme') // button de chaque theme
+let theme // theme du quizz
+for (let i = 0; i < btntheme.length; i++) {
+
+  btntheme[i].addEventListener("click", function (e) {
+    // ajout d'onclick sur les bouton "Try it "des themes 
+    theme = e.target.value
+    fetch(`http://localhost:8080/db/quizz${theme}.json`)
+      .then(result => result.json())
+      .then(data => {
+        quote = data;
+        console.log(quote);
+        document.getElementById('theme').style.display = "none";
+        document.getElementById('quizz').style.display = "block";
+      });
+
+
+  });
+}
+
+
+
+
+let back = document.getElementById("btnB"); //button de retour
 
 function lvl() {
   let choixLevel = document.getElementById("choix");
