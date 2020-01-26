@@ -1,0 +1,18 @@
+.mam {
+    margin-top: 50px;
+    border-radius: 3%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.form-group>button {
+    margin: 8px 35%
+}
+
+#pop {
+    display: none;
+}
+
+#result {
+    display: none;
+}
