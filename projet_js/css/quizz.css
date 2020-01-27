@@ -1,6 +1,6 @@
 .mam {
     margin-top: 50px;
-    border-radius: 3%;
+    border-radius: 20px;
     padding-bottom: 5px;
     padding-top: 5px;
 }
@@ -14,5 +14,10 @@
 }
 
 #result {
+    display: none;
+}
+
+
+#quizz{
     display: none;
 }
