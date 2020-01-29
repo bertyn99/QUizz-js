@@ -6,6 +6,8 @@ let choice;
 let score = 0; // score au quizz initialisée a zérolet btntheme = document.getElementsByClassName('theme');
 let btntheme = document.getElementsByClassName("theme"); // button de chaque theme
 let theme; // theme du quizz
+let sec = 11;
+let timer = "";
 for (let i = 0; i < btntheme.length; i++) {
   btntheme[i].addEventListener("click", function(e) {
     // ajout d'onclick sur les bouton "Try it "des themes
@@ -39,14 +41,7 @@ function quizz() {
 
   question(level, numquestion);
 
-  let check = document.getElementById("btnC");
   let suivant = document.getElementById("btnS");
-
-  //bouton qui check les reponse
-  check.addEventListener("click", function(e) {
-    verifRep(numquestion, level);
-  });
-
   //bouton qui passe a la question suivante
   suivant.addEventListener("click", function(e) {
     if (numquestion < 9) {
@@ -71,8 +66,26 @@ function quizz() {
   });
 }
 
+function Timer() {
+  sec--;
+  if (sec >= 0) {
+    document.getElementById(`timer`).innerHTML = "0:" + sec;
+
+    let check = document.getElementById("btnC");
+    //bouton qui check les reponse
+    check.addEventListener("click", function(e) {
+      verifRep(numquestion, level);
+    });
+  } else {
+    clearInterval(timer);
+  }
+
+  console.log(sec);
+}
+
 function question(niveau, numquestion) {
   document.getElementById("pop").style.display = "block";
+  timer = setInterval("Timer()", 1000);
   if (numquestion < 1) {
     back.style.display = "none";
   } else {
@@ -104,13 +117,6 @@ function question(niveau, numquestion) {
     }
   }
 }
-
-setInterval = setInterval(() => {
-  sec--;
-  if (sec > 0) {
-    document.getElementById(`timer`).innerHTML
-  }else
-}, 1000);
 
 function verifRep(num, level) {
   let choixLevel = document.getElementById("r");
