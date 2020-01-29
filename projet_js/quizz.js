@@ -7,8 +7,12 @@ let numquestion = 0;
 let score = 0; // score au quizz initialisée a zérolet btntheme = document.getElementsByClassName('theme');
 let btntheme = document.getElementsByClassName("theme"); // button de chaque theme
 let theme; // theme du quizz
-let sec = 20;
+let sec = 20;// temps en second
 let timer = "";
+
+localStorage.setItem("highscore", `{ "nom": "bertyn", "score": 1 }`)//idéé sauvegardes des score sous forme de JSON string dans local storage
+let data = localStorage.getItem("highscore")//qui sont recup ici
+const test = JSON.parse(data)//puis parse pr recup la data
 for (let i = 0; i < btntheme.length; i++) {
   btntheme[i].addEventListener("click", function (e) {
     // ajout d'onclick sur les bouton "Try it "des themes
@@ -39,21 +43,28 @@ function lvl() {
 
 function quizz() {
 
-
+  console.log(test)
   question(level, numquestion);
 
   let suivant = document.getElementById("btnS");
   //bouton qui passe a la question suivante
   suivant.addEventListener("click", function (e) {
-    if (numquestion < 9) {
+    if (numquestion < 9 && (sec >= 0 || sec < 0)) {
+      clearInterval(timer);
       sec = 20
       numquestion++;
       question(level, numquestion);
     } else {
+      clearInterval(timer);
       document.getElementById("pop").style.display = "none";
-      document.getElementById("result").style.display = "block";
-      document.getElementById("result").innerHTML = `<h1> ${quote.thème}</h1>
-      <p>Vous avez  obtenu un score de ${score}/10 </p>`;
+      document.getElementById("score").innerHTML = `<h1> ${quote.thème}</h1>
+      <p>Vous avez  obtenu un score de ${score}/10 </p>
+      `;
+
+      if (score > localStorage.getItem("highscore").score) {//test pour voir si il recupere et compare bien avec le score en local storage
+
+        console.log("test")
+      }
     }
   });
 
@@ -76,6 +87,7 @@ function Timer() {
     //bouton qui check les reponse
     check.addEventListener("click", function (e) {
       verifRep(numquestion, level);
+      clearInterval(timer);
     });
   } else {
     clearInterval(timer);
@@ -88,10 +100,10 @@ function Timer() {
 }
 
 function question(niveau, numquestion) {
-  document.getElementById("pop").style.display = "block";
-  progressBar(numquestion)
-  timer = setInterval("Timer()", 1000);
-  if (numquestion < 1) {
+  document.getElementById("pop").style.display = "block";//block des question
+  progressBar(numquestion)// incrementation du widht de la progress bar
+  timer = setInterval("Timer()", 1000);//lancement du time a l'initialisation de la question
+  if (numquestion < 1) { //if le num de la question est inf a 1 impossible d'affiche le bouton retour
     back.style.display = "none";
   } else {
     back.style.display = "inline-block";
@@ -215,4 +227,9 @@ function verifRep(num, level) {
 
 function progressBar(num) {// bar de progression qui previent du niveau de completion du quizz
   document.getElementsByClassName(`progress-bar-striped`)[0].style.width = `${num}0%`
+}
+
+function TriScore() {
+  //fonction qui a pr but du trier l'array des score d'un themeet d'une diffculté
+  // afin de range les objet Playerscore  par odre croissant
 }
