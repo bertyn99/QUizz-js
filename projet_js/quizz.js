@@ -3,13 +3,14 @@ let quote = {}; // variable qui va contenir la data hors du fetch
 let level = ""; //level de difficulté
 let repChoisi;
 let choice;
+let numquestion = 0;
 let score = 0; // score au quizz initialisée a zérolet btntheme = document.getElementsByClassName('theme');
 let btntheme = document.getElementsByClassName("theme"); // button de chaque theme
 let theme; // theme du quizz
-let sec = 11;
+let sec = 20;
 let timer = "";
 for (let i = 0; i < btntheme.length; i++) {
-  btntheme[i].addEventListener("click", function(e) {
+  btntheme[i].addEventListener("click", function (e) {
     // ajout d'onclick sur les bouton "Try it "des themes
     theme = e.target.value;
     fetch(`http://localhost:8080/db/quizz${theme}.json`)
@@ -37,15 +38,15 @@ function lvl() {
 }
 
 function quizz() {
-  let numquestion = 0;
+
 
   question(level, numquestion);
 
   let suivant = document.getElementById("btnS");
   //bouton qui passe a la question suivante
-  suivant.addEventListener("click", function(e) {
+  suivant.addEventListener("click", function (e) {
     if (numquestion < 9) {
-      console.log(numquestion);
+      sec = 20
       numquestion++;
       question(level, numquestion);
     } else {
@@ -57,7 +58,7 @@ function quizz() {
   });
 
   //bouton qui revient a la question precedente
-  back.addEventListener("click", function(e) {
+  back.addEventListener("click", function (e) {
     if (numquestion < 10 && numquestion > 0) {
       console.log(numquestion);
       question(level, numquestion - 1);
@@ -73,11 +74,15 @@ function Timer() {
 
     let check = document.getElementById("btnC");
     //bouton qui check les reponse
-    check.addEventListener("click", function(e) {
+    check.addEventListener("click", function (e) {
       verifRep(numquestion, level);
     });
   } else {
     clearInterval(timer);
+    verifRep(numquestion, level)
+    $('#exampleModal').on('shown.bs.modal', function () {
+      $('#myInput').trigger('focus')
+    })
   }
 
   console.log(sec);
@@ -85,11 +90,12 @@ function Timer() {
 
 function question(niveau, numquestion) {
   document.getElementById("pop").style.display = "block";
+  progressBar(numquestion)
   timer = setInterval("Timer()", 1000);
   if (numquestion < 1) {
     back.style.display = "none";
   } else {
-    back.style.display = "block";
+    back.style.display = "inline-block";
   }
   if (niveau.toLowerCase() == "débutant") {
     document.getElementById(`q`).innerHTML =
@@ -126,27 +132,34 @@ function verifRep(num, level) {
   //verifie si une reponse a bien  ete choisi
   if (level.toLowerCase() == "débutant") {
     if (repChoisi == quote.quizz.fr[0].débutant[num].réponse) {
-      console.log("bonne reponse");
-      alert("bonne reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
+
       score++;
     } else {
       console.log("mauvaise reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
     }
   } else if (level.toLowerCase() == "expert") {
     if (repChoisi == quote.quizz.fr[0].expert[num].réponse) {
-      console.log("bonne reponse");
-      alert("bonne reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
+
       score++;
     } else {
       console.log("mauvaise reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
     }
   } else if (level.toLowerCase() == "confirmé") {
     if (repChoisi == quote.quizz.fr[0].confirmé[num].réponse) {
-      console.log("bonne reponse");
-      alert("bonne reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
+
       score++;
     } else {
       console.log("mauvaise reponse");
+      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
     }
   }
+}
+
+function progressBar(num) {// bar de progression qui previent du niveau de completion du quizz
+  document.getElementsByClassName(`progress-bar-striped`)[0].style.width = `${num}0%`
 }

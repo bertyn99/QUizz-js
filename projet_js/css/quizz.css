@@ -20,4 +20,10 @@
 
 #quizz{
     display: none;
+    padding: auto;
+    margin: auto;
+}
+
+#timer{
+    margin: auto;
 }
