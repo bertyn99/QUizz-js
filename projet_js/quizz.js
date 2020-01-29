@@ -80,9 +80,8 @@ function Timer() {
   } else {
     clearInterval(timer);
     verifRep(numquestion, level)
-    $('#exampleModal').on('shown.bs.modal', function () {
-      $('#myInput').trigger('focus')
-    })
+    //Censer ouvrir le modal sans avoir appuyer sur le bouton check
+
   }
 
   console.log(sec);
@@ -130,32 +129,86 @@ function verifRep(num, level) {
 
   repChoisi = choixLevel.options[indexlvl].value;
   //verifie si une reponse a bien  ete choisi
+  document.getElementById('result').style.display = "block"
   if (level.toLowerCase() == "débutant") {
     if (repChoisi == quote.quizz.fr[0].débutant[num].réponse) {
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
+
+      document.getElementById('result').innerHTML = ` <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Bonne reponse</h4>
+      <p> ${quote.quizz.fr[0].débutant[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].débutant[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
 
       score++;
     } else {
       console.log("mauvaise reponse");
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
+      document.getElementById('result').innerHTML = ` <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Mauvaise reponse</h4>
+      <p> La bonne reponse est ${quote.quizz.fr[0].débutant[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].débutant[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
     }
   } else if (level.toLowerCase() == "expert") {
     if (repChoisi == quote.quizz.fr[0].expert[num].réponse) {
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
-
+      document.getElementById('result').innerHTML = ` <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Bonne reponse</h4>
+      <p> ${quote.quizz.fr[0].expert[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].débutant[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
       score++;
     } else {
       console.log("mauvaise reponse");
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
+      document.getElementById('result').innerHTML = ` <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Mauvaise reponse</h4>
+      <p> La bonne reponse est  ${quote.quizz.fr[0].expert[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].expert[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
     }
   } else if (level.toLowerCase() == "confirmé") {
     if (repChoisi == quote.quizz.fr[0].confirmé[num].réponse) {
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "bonne reponse"
-
+      document.getElementById('result').innerHTML = ` <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Bonne reponse</h4>
+      <p> ${quote.quizz.fr[0].confirmé[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].confirmé[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
       score++;
     } else {
       console.log("mauvaise reponse");
-      document.getElementsByClassName(`modal-body`)[0].innerHTML = "mauvaise reponse"
+      document.getElementById('result').innerHTML = ` <div class="alert alert-danger" role="alert">
+      <h4 class="alert-heading">Mauvaise reponse</h4>
+      <p> La bonne reponse est  ${quote.quizz.fr[0].confirmé[num].réponse}</p>
+      <hr>
+      <p id="anecdote" class="mb-0">${quote.quizz.fr[0].confirmé[num].anecdote}</p>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+`
     }
   }
 }
